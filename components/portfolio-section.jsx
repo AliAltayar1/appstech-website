@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
@@ -12,7 +12,6 @@ import {
 import Image from "next/image";
 import { useLanguage } from "./language-provider";
 import { Button } from "@/components/ui/button";
-
 
 const categories = [
   { id: "all", en: "All", ar: "الكل" },
@@ -74,6 +73,21 @@ const projects = [
     liveUrl: null,
     color: "#00FFA3",
     type: "mobile",
+  },
+  {
+    id: 9,
+    titleEn: "HomsGov — Administrative District Management",
+    titleAr: "هومس غوف — نظام إدارة المناطق الإدارية",
+    descEn:
+      "A secure, government-grade administrative platform built for Homs Governorate to streamline the management of administrative districts and sub-regions. The system features granular role-based access control (RBAC) — each user sees and interacts only with data permitted by their assigned role, from field officers to department heads and super-administrators. Powered by a Django REST Framework backend with JWT authentication, it delivers a fast, token-secured API consumed by a React + Tailwind CSS frontend. Advanced multi-criteria filtering lets staff slice district records by region, status, date, and custom parameters in real time — replacing paper-heavy workflows with a centralized, auditable digital command center.",
+    descAr:
+      "منصة إدارية حكومية متكاملة وآمنة، مصممة خصيصًا لمحافظة حمص لتسهيل إدارة المناطق والوحدات الإدارية. يوفر النظام نظام صلاحيات دقيق قائم على الأدوار (RBAC) — حيث يرى كل مستخدم ويتفاعل فقط مع البيانات المخوّل له الوصول إليها، من موظفي الميدان إلى رؤساء الأقسام والمشرفين العامين. يعتمد النظام على خلفية Django REST Framework مع مصادقة JWT تضمن أمان الوصول، تُغذّي واجهة أمامية بـ React وTailwind CSS. تتيح أدوات الفلترة المتقدمة متعددة المعايير تصفية سجلات المناطق حسب المنطقة والحالة والتاريخ والمعايير المخصصة في الوقت الفعلي — لتحل محل المنظومة الورقية بمركز قيادة رقمي مركزي وقابل للتدقيق.",
+    category: "fullstack",
+    stack: ["Django", "React", "Tailwind CSS", "JWT", "REST API", "RBAC"],
+    images: ["/homsgov.jpg"],
+    liveUrl: null,
+    color: "#3B82F6",
+    type: "web",
   },
   {
     id: 2,
@@ -208,9 +222,48 @@ function ProjectDescription({ descEn, descAr, color }) {
 }
 
 // ── Image Slider ──────────────────────────────────────────────────────────────
-function ProjectImageSlider({ images, title, liveUrl, color }) {
+function ProjectImageSlider({ images, title, liveUrl, color, isFirstCard }) {
   const [current, setCurrent] = useState(0);
   const hasMultiple = images.length > 1;
+
+  // ── Touch swipe tracking ──────────────────────────────────────────────────
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (e) => {
+      if (touchStartX.current === null || !hasMultiple) return;
+      const dx = e.changedTouches[0].clientX - touchStartX.current;
+      const dy = e.changedTouches[0].clientY - touchStartY.current;
+
+      // Only act on predominantly horizontal swipes (avoids fighting page scroll)
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+        if (dx < 0) {
+          // Swipe left → next
+          setCurrent((c) => (c + 1) % images.length);
+        } else {
+          // Swipe right → prev
+          setCurrent((c) => (c - 1 + images.length) % images.length);
+        }
+      }
+      touchStartX.current = null;
+      touchStartY.current = null;
+    },
+    [hasMultiple, images.length],
+  );
+
+  // ── Preload the next image so the transition is instant ───────────────────
+  useEffect(() => {
+    if (!hasMultiple) return;
+    const nextIndex = (current + 1) % images.length;
+    const img = new window.Image();
+    img.src = images[nextIndex];
+  }, [current, hasMultiple, images]);
 
   const prev = useCallback(
     (e) => {
@@ -245,6 +298,9 @@ function ProjectImageSlider({ images, title, liveUrl, color }) {
             fill
             className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, 33vw"
+            priority={isFirstCard && current === 0}
+            loading={isFirstCard && current === 0 ? "eager" : "lazy"}
+            quality={80}
           />
         </motion.div>
       </AnimatePresence>
@@ -266,18 +322,22 @@ function ProjectImageSlider({ images, title, liveUrl, color }) {
         </a>
       )}
 
-      {/* Slider controls */}
+      {/* Slider controls — hidden on desktop until hover, always visible on touch screens */}
       {hasMultiple && (
         <>
           <button
             onClick={prev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center backdrop-blur-md bg-black/40 border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
+            aria-label="Previous image"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center backdrop-blur-md bg-black/40 border border-white/10 text-white
+              opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-60 transition-opacity hover:bg-black/60"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={next}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center backdrop-blur-md bg-black/40 border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
+            aria-label="Next image"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full flex items-center justify-center backdrop-blur-md bg-black/40 border border-white/10 text-white
+              opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-60 transition-opacity hover:bg-black/60"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -291,6 +351,7 @@ function ProjectImageSlider({ images, title, liveUrl, color }) {
                   e.stopPropagation();
                   setCurrent(i);
                 }}
+                aria-label={`Go to image ${i + 1}`}
                 className={`rounded-full transition-all duration-300 ${
                   i === current
                     ? "w-4 h-1.5 opacity-100"
@@ -306,7 +367,11 @@ function ProjectImageSlider({ images, title, liveUrl, color }) {
   );
 
   return (
-    <div className="relative h-52 overflow-hidden bg-black/20">
+    <div
+      className="relative h-52 overflow-hidden bg-black/20 touch-pan-y"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="absolute inset-0">{Inner}</div>
     </div>
   );
@@ -395,6 +460,7 @@ export function PortfolioSection() {
                     title={project.titleEn}
                     liveUrl={project.liveUrl}
                     color={project.color}
+                    isFirstCard={index === 0}
                   />
 
                   {/* Category Badge */}
