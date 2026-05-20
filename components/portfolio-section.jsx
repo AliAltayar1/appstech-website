@@ -258,12 +258,10 @@ function ProjectImageSlider({ images, title, liveUrl, color, isFirstCard }) {
   );
 
   // ── Preload the next image so the transition is instant ───────────────────
-  useEffect(() => {
-    if (!hasMultiple) return;
-    const nextIndex = (current + 1) % images.length;
-    const img = new window.Image();
-    img.src = images[nextIndex];
-  }, [current, hasMultiple, images]);
+  // NOTE: removed manual `new Image()` preloader because it fetched raw
+  // image paths instead of Next.js-optimized /_next/image URLs. We render
+  // a hidden Next.js `Image` in the JSX below when `hasMultiple` is true
+  // so Next will request the optimized image and warm the cache.
 
   const prev = useCallback(
     (e) => {
@@ -373,6 +371,18 @@ function ProjectImageSlider({ images, title, liveUrl, color, isFirstCard }) {
       onTouchEnd={handleTouchEnd}
     >
       <div className="absolute inset-0">{Inner}</div>
+
+      {/* Hidden Next.js Image to warm optimized /_next/image cache for the next slide */}
+      {hasMultiple && (
+        <Image
+          src={images[(current + 1) % images.length]}
+          alt=""
+          width={1}
+          height={1}
+          style={{ display: "none" }}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 }
