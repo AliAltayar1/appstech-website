@@ -12,6 +12,8 @@ const trustIndicators = [
   { icon: Sparkles, en: "UI/UX Design", ar: "تصميم UI/UX" },
 ];
 
+console.log("hero component loaded with features:");
+
 export function HeroSection() {
   const { t, isRTL } = useLanguage();
 
@@ -21,7 +23,7 @@ export function HeroSection() {
       <div className="absolute inset-0 gradient-mesh" />
       <div className="absolute inset-0 grid-pattern opacity-50" />
 
-      {/* Floating Elements */}
+      {/* Floating Elements — orbs hidden on mobile to prevent GPU crash */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Glowing Orbs */}
         <motion.div
@@ -30,7 +32,7 @@ export function HeroSection() {
             y: [0, -20, 0],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#00F5FF]/10 blur-3xl"
+          className="mobile-hide-orb absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#00F5FF]/10 blur-3xl"
         />
         <motion.div
           animate={{
@@ -38,7 +40,7 @@ export function HeroSection() {
             y: [0, 30, 0],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-[#8B5CF6]/10 blur-3xl"
+          className="mobile-hide-orb absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-[#8B5CF6]/10 blur-3xl"
         />
         <motion.div
           animate={{
@@ -46,7 +48,7 @@ export function HeroSection() {
             y: [0, -30, 0],
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 right-1/3 w-48 h-48 rounded-full bg-[#FF4ECD]/10 blur-3xl"
+          className="mobile-hide-orb absolute top-1/2 right-1/3 w-48 h-48 rounded-full bg-[#FF4ECD]/10 blur-3xl"
         />
       </div>
 

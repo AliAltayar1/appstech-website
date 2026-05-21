@@ -50,7 +50,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark bg-background">
+    <html lang="en" className="dark bg-background" suppressHydrationWarning>
       <body className={`${inter.variable} ${ibmPlexArabic.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <LanguageProvider>
           {children}

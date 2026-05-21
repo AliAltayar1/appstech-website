@@ -1,45 +1,46 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Globe } from 'lucide-react'
-import { useLanguage } from './language-provider'
-import { Button } from '@/components/ui/button'
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Globe } from "lucide-react";
+import Image from "next/image";
+import { useLanguage } from "./language-provider";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { en: 'About', ar: 'من نحن', href: '#about' },
-  { en: 'Services', ar: 'خدماتنا', href: '#services' },
-  { en: 'Tech Stack', ar: 'التقنيات', href: '#tech' },
-  { en: 'Portfolio', ar: 'أعمالنا', href: '#portfolio' },
-  { en: 'Process', ar: 'منهجيتنا', href: '#process' },
-  { en: 'Contact', ar: 'تواصل معنا', href: '#contact' },
-]
+  { en: "About", ar: "من نحن", href: "#about" },
+  { en: "Services", ar: "خدماتنا", href: "#services" },
+  { en: "Tech Stack", ar: "التقنيات", href: "#tech" },
+  { en: "Portfolio", ar: "أعمالنا", href: "#portfolio" },
+  { en: "Process", ar: "منهجيتنا", href: "#process" },
+  { en: "Contact", ar: "تواصل معنا", href: "#contact" },
+];
 
 export function Navbar() {
-  const { language, setLanguage, t, isRTL } = useLanguage()
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { language, setLanguage, t, isRTL } = useLanguage();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'ar' : 'en')
-  }
+    setLanguage(language === "en" ? "ar" : "en");
+  };
 
   return (
     <>
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'glass py-3' : 'py-5'
+          isScrolled ? "glass py-3" : "py-5"
         }`}
       >
         <div className="container mx-auto px-4 md:px-6">
@@ -50,13 +51,17 @@ export function Navbar() {
               className="flex items-center gap-2 group"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="relative w-10 h-10 flex items-center justify-center">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#00F5FF] via-[#8B5CF6] to-[#FF4ECD] rounded-lg opacity-80 group-hover:opacity-100 transition-opacity" />
-                <span className="relative text-lg font-bold text-background">A</span>
-              </div>
+              <Image
+                src="/AppsTechLogo.png"
+                alt="AppsTech Logo"
+                width={50}
+                height={50}
+                className="object-contain rounded-full"
+                style={{ height: "auto" }}
+              />
               <span className="text-xl font-bold tracking-tight">
-                <span className="text-foreground">Apps</span>
-                <span className="text-[#00F5FF]">tech</span>
+                <span className="text-[#034bd1]">Apps</span>
+                <span className="text-foreground">tech</span>
               </span>
             </motion.a>
 
@@ -85,7 +90,9 @@ export function Navbar() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Globe className="w-4 h-4 text-[#00F5FF]" />
-                <span className="font-medium">{language === 'en' ? 'عربي' : 'EN'}</span>
+                <span className="font-medium">
+                  {language === "en" ? "عربي" : "EN"}
+                </span>
               </motion.button>
 
               {/* CTA Button */}
@@ -98,9 +105,7 @@ export function Navbar() {
                   asChild
                   className="bg-gradient-to-r from-[#00F5FF] to-[#8B5CF6] text-background font-semibold hover:opacity-90 border-0 neon-glow-cyan"
                 >
-                  <a href="#contact">
-                    {t('Start Project', 'ابدأ مشروعك')}
-                  </a>
+                  <a href="#contact">{t("Start Project", "ابدأ مشروعك")}</a>
                 </Button>
               </motion.div>
 
@@ -109,7 +114,11 @@ export function Navbar() {
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden p-2 rounded-lg glass-card"
               >
-                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </button>
             </div>
           </div>
@@ -151,8 +160,11 @@ export function Navbar() {
                     asChild
                     className="w-full bg-gradient-to-r from-[#00F5FF] to-[#8B5CF6] text-background font-semibold"
                   >
-                    <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                      {t('Start Your Project', 'ابدأ مشروعك')}
+                    <a
+                      href="#contact"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {t("Start Your Project", "ابدأ مشروعك")}
                     </a>
                   </Button>
                 </motion.div>
@@ -162,5 +174,5 @@ export function Navbar() {
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }

@@ -247,3 +247,39 @@
   background: rgba(0, 245, 255, 0.3);
   color: #fff;
 }
+
+/* ── Mobile Performance: disable heavy GPU effects on small screens ──────── */
+/* iOS Safari and Android Chrome crash ("A problem repeatedly occurred")      */
+/* when too many backdrop-filter / blur layers are composited simultaneously. */
+@media (max-width: 768px) {
+  /* Replace backdrop-filter blur with a solid semi-transparent background */
+  .glass {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(15, 15, 25, 0.88) !important;
+  }
+
+  .glass-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(20, 20, 35, 0.85) !important;
+  }
+
+  /* Disable the huge fixed background blur orbs on mobile */
+  .mobile-hide-orb {
+    display: none !important;
+  }
+
+  /* Reduce animation intensity: no infinite spin on mobile */
+  .animate-spin {
+    animation: none !important;
+  }
+
+  /* Reduce neon glow box-shadows (expensive on mobile compositing) */
+  .neon-glow-cyan,
+  .neon-glow-purple,
+  .neon-glow-pink,
+  .neon-glow-green {
+    box-shadow: none !important;
+  }
+}

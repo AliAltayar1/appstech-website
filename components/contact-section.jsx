@@ -115,6 +115,15 @@ export function ContactSection() {
       color: "#00FFA3",
     },
     {
+      icon: MessageCircle,
+      labelEn: "WhatsApp",
+      labelAr: "واتساب",
+      valueEn: "+963 937 042 497",
+      valueAr: "‎+963 937 042 497",
+      href: "https://wa.me/963937042497?text=Hello%20AppsTech!%20I%20visited%20your%20portfolio%20and%20I%27d%20love%20to%20discuss%20a%20project%20with%20you.%20%F0%9F%91%8B",
+      color: "#00FFA3",
+    },
+    {
       icon: null,
       isTelegram: true,
       labelEn: "Telegram",
@@ -364,7 +373,7 @@ export function ContactSection() {
 
               {contactMethods.map((method, index) => (
                 <motion.a
-                  key={method.labelEn}
+                  key={index}
                   href={method.href}
                   target="_blank"
                   rel="noopener noreferrer"

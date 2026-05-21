@@ -133,7 +133,7 @@ export function TechStackSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="mt-16 flex justify-center"
+          className="mobile-hide-orb mt-16 flex justify-center"
         >
           <div className="relative w-64 h-64 md:w-80 md:h-80">
             {/* Center Logo */}

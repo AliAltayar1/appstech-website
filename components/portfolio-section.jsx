@@ -35,6 +35,8 @@ const projects = [
       "Next.js 15",
       "React 19",
       "Tailwind CSS",
+      "Python",
+      "Django",
       "Framer Motion",
       "Recharts",
       "Gemini AI",
@@ -44,6 +46,35 @@ const projects = [
     color: "#F59E0B",
     type: "web",
   },
+  {
+    id: 10,
+    titleEn: "Islamic Mosque Management Platform",
+    titleAr: "منصة إدارة المساجد الإسلامية",
+    descEn:
+      "An advanced cross-platform Flutter application for end-to-end digital mosque management and community engagement. Covers a multi-tier role system — Super Admin, Mosque Admin, Teacher, Student, and Visitor — with a desktop command center for network-wide oversight and a mobile companion app for worship, learning, and daily mosque life. Super Admin tools include mosque registry, admin provisioning, operational statistics, live-stream management, global Adhkar content, and PDF report export. Mosque Admin modules span prayer times, fatwa workflows, institute management (teachers, students, courses, lessons, attendance), announcements, events, and mosque-level live streams. The mobile experience delivers a polished Arabic-first RTL interface with prayer times, Qibla direction, Quran reading with progress tracking, Adhkar, mosque maps and favorites, geofence-aware notifications, and Firebase push messaging — alongside dedicated teacher and student dashboards for lesson scheduling, exam creation and grading, attendance, and performance statistics. Built with GetX state management and clean architecture across both desktop and mobile surfaces.",
+    descAr:
+      "تطبيق Flutter متعدد المنصات لإدارة المساجد رقميًا بشكل متكامل وتعزيز تواصل المجتمع. يتضمن نظام أدوار متعدد المستويات — مشرف عام، مشرف مسجد، معلم، طالب، وزائر — مع لوحة تحكم سطح مكتب للإشراف على شبكة المساجد وتطبيق جوال للعبادة والتعلم والحياة اليومية في المسجد. تشمل أدوات المشرف العام: سجل المساجد، تعيين المشرفين، الإحصائيات التشغيلية، البث المباشر، محتوى الأذكار العالمي، وتصدير التقارير PDF. وحدات مشرف المسجد تغطي: أوقات الصلاة، سير الفتاوى، إدارة المعهد (معلمون، طلاب، دورات، دروس، حضور)، إعلانات، فعاليات، وبث مباشر. تجربة الجوال تقدم واجهة عربية RTL أنيقة مع: أوقات الصلاة، اتجاه القبلة، قراءة القرآن مع تتبع التقدم، الأذكار، خرائط المساجد والمفضلة، إشعارات الجيوفنس، ورسائل Firebase — إلى جانب لوحات معلمين وطلاب متخصصة لجدولة الدروس وإنشاء الاختبارات والتقييم والإحصائيات.",
+    category: "fullstack",
+    stack: [
+      "Flutter",
+      "Dart",
+      "GetX",
+      "Laravel",
+      "REST API",
+      "Firebase",
+      "Geofence",
+      "flutter_map",
+      "PDF Export",
+      "Desktop",
+      "RTL Arabic",
+      "Multi-role Auth",
+    ],
+    images: ["/islamic4.png", "/islamic5.png"],
+    liveUrl: null,
+    color: "#10B981",
+    type: "mobile",
+  },
+
   {
     id: 3,
     titleEn: "Arabic Accounting & Inventory System",
@@ -279,6 +310,13 @@ function ProjectImageSlider({ images, title, liveUrl, color, isFirstCard }) {
     [images.length],
   );
 
+  const [imgError, setImgError] = useState(false);
+
+  // Reset error state when slide changes
+  useEffect(() => {
+    setImgError(false);
+  }, [current]);
+
   const Inner = (
     <>
       <AnimatePresence mode="wait" initial={false}>
@@ -290,16 +328,33 @@ function ProjectImageSlider({ images, title, liveUrl, color, isFirstCard }) {
           transition={{ duration: 0.35 }}
           className="absolute inset-0"
         >
-          <Image
-            src={images[current]}
-            alt={`${title} screenshot ${current + 1}`}
-            fill
-            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 33vw"
-            priority={isFirstCard && current === 0}
-            loading={isFirstCard && current === 0 ? "eager" : "lazy"}
-            quality={80}
-          />
+          {imgError ? (
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                background: `linear-gradient(135deg, ${color}15 0%, ${color}05 100%)`,
+              }}
+            >
+              <span
+                className="text-4xl opacity-30 select-none"
+                style={{ color }}
+              >
+                ◈
+              </span>
+            </div>
+          ) : (
+            <Image
+              src={images[current]}
+              alt={`${title} screenshot ${current + 1}`}
+              fill
+              className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 33vw"
+              priority={isFirstCard && current === 0}
+              loading={isFirstCard && current === 0 ? "eager" : "lazy"}
+              quality={80}
+              onError={() => setImgError(true)}
+            />
+          )}
         </motion.div>
       </AnimatePresence>
 
@@ -400,7 +455,6 @@ export function PortfolioSection() {
   return (
     <section id="portfolio" className="relative py-24 md:py-32 overflow-hidden">
       <div className="absolute inset-0 grid-pattern opacity-30" />
-
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Header */}
         <motion.div
@@ -448,7 +502,7 @@ export function PortfolioSection() {
         </motion.div>
 
         {/* Grid */}
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
               <motion.div
@@ -544,7 +598,7 @@ export function PortfolioSection() {
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
         {/* CTA */}
         {/* <motion.div
