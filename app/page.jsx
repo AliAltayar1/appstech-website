@@ -53,7 +53,7 @@ export default function HomePage() {
         <TechStackSection />
         <PortfolioSection />
         <ProcessSection />
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
         <FaqSection />
         <ContactSection />
         <Footer />

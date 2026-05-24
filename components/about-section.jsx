@@ -1,52 +1,58 @@
-"use client"
+"use client";
 
-import { motion } from 'framer-motion'
-import { Shield, Zap, Smartphone, Target } from 'lucide-react'
-import { useLanguage } from './language-provider'
+import { motion } from "framer-motion";
+import { Shield, Zap, Smartphone, Target } from "lucide-react";
+import { useLanguage } from "./language-provider";
 
 const features = [
   {
     icon: Shield,
-    titleEn: 'Django Backend',
-    titleAr: 'خوادم Django',
-    descEn: 'Secure, scalable backend systems built with Python and Django for enterprise-grade reliability.',
-    descAr: 'أنظمة خوادم آمنة وقابلة للتوسع مبنية بـ Python و Django لموثوقية بمستوى المؤسسات.',
-    color: '#00FFA3',
+    titleEn: "Django Backend",
+    titleAr: "خوادم Django",
+    descEn:
+      "Secure, scalable backend systems built with Python and Django for enterprise-grade reliability.",
+    descAr:
+      "أنظمة خوادم آمنة وقابلة للتوسع مبنية بـ Python و Django لموثوقية بمستوى المؤسسات.",
+    color: "#00FFA3",
   },
   {
     icon: Zap,
-    titleEn: 'Next.js Frontend',
-    titleAr: 'واجهات Next.js',
-    descEn: 'Lightning-fast, SEO-optimized web applications with server-side rendering and modern React.',
-    descAr: 'تطبيقات ويب سريعة كالبرق ومحسّنة لمحركات البحث مع تقنيات React الحديثة.',
-    color: '#00F5FF',
+    titleEn: "Next.js Frontend",
+    titleAr: "واجهات Next.js",
+    descEn:
+      "Lightning-fast, SEO-optimized web applications with server-side rendering and modern React.",
+    descAr:
+      "تطبيقات ويب سريعة كالبرق ومحسّنة لمحركات البحث مع تقنيات React الحديثة.",
+    color: "#00F5FF",
   },
   {
     icon: Smartphone,
-    titleEn: 'Flutter Mobile',
-    titleAr: 'تطبيقات Flutter',
-    descEn: 'Beautiful, natively compiled mobile applications for iOS and Android from a single codebase.',
-    descAr: 'تطبيقات جوال جميلة ومُجمَّعة أصلياً لـ iOS و Android من كود واحد.',
-    color: '#8B5CF6',
+    titleEn: "Flutter Mobile",
+    titleAr: "تطبيقات Flutter",
+    descEn:
+      "Beautiful, natively compiled mobile applications for iOS and Android from a single codebase.",
+    descAr: "تطبيقات جوال جميلة ومُجمَّعة أصلياً لـ iOS و Android من كود واحد.",
+    color: "#8B5CF6",
   },
   {
     icon: Target,
-    titleEn: 'Result-Driven',
-    titleAr: 'نتائج ملموسة',
-    descEn: 'We focus on delivering measurable business outcomes, not just code.',
-    descAr: 'نركز على تحقيق نتائج أعمال قابلة للقياس، وليس مجرد كتابة الكود.',
-    color: '#FF4ECD',
+    titleEn: "Result-Driven",
+    titleAr: "نتائج ملموسة",
+    descEn:
+      "We focus on delivering measurable business outcomes, not just code.",
+    descAr: "نركز على تحقيق نتائج أعمال قابلة للقياس، وليس مجرد كتابة الكود.",
+    color: "#FF4ECD",
   },
-]
+];
 
 export function AboutSection() {
-  const { t } = useLanguage()
+  const { t } = useLanguage();
 
   return (
     <section id="about" className="relative py-24 md:py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 gradient-mesh opacity-50" />
-      
+
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -57,15 +63,15 @@ export function AboutSection() {
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-2 rounded-full glass-card text-sm font-medium text-[#00F5FF] mb-4">
-            {t('About Appstech', 'عن Appstech')}
+            {t("About Appstech", "عن Appstech")}
           </span>
           <h2 className="text-3xl md:text-5xl font-bold mb-6 text-balance">
-            {t('Why Choose Us?', 'لماذا تختارنا؟')}
+            {t("Why Choose Us?", "لماذا تختارنا؟")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
             {t(
-              'We combine technical excellence with business acumen to deliver digital products that drive growth.',
-              'نجمع بين التميز التقني وفهم الأعمال لتقديم منتجات رقمية تدفع النمو.'
+              "We combine technical excellence with business acumen to deliver digital products that drive growth.",
+              "نجمع بين التميز التقني وفهم الأعمال لتقديم منتجات رقمية تدفع النمو.",
             )}
           </p>
         </motion.div>
@@ -87,9 +93,12 @@ export function AboutSection() {
                   className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 transition-transform group-hover:scale-110`}
                   style={{ backgroundColor: `${feature.color}20` }}
                 >
-                  <feature.icon className="w-6 h-6" style={{ color: feature.color }} />
+                  <feature.icon
+                    className="w-6 h-6"
+                    style={{ color: feature.color }}
+                  />
                 </div>
-                
+
                 {/* Content */}
                 <h3 className="text-xl font-bold mb-3 text-foreground">
                   {t(feature.titleEn, feature.titleAr)}
@@ -109,7 +118,7 @@ export function AboutSection() {
         </div>
 
         {/* Stats */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -140,8 +149,8 @@ export function AboutSection() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
-  )
+  );
 }
