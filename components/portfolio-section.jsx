@@ -199,7 +199,7 @@ const projects = [
 ];
 
 // ── Description with Read More ────────────────────────────────────────────────
-const CHAR_LIMIT = 160;
+const CHAR_LIMIT = 160; 
 
 function ProjectDescription({ descEn, descAr, color }) {
   const { t, isRTL } = useLanguage();
