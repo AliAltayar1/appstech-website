@@ -105,21 +105,21 @@ const projects = [
     color: "#00FFA3",
     type: "mobile",
   },
-  {
-    id: 9,
-    titleEn: "HomsGov — Administrative District Management",
-    titleAr: "هومس غوف — نظام إدارة المناطق الإدارية",
-    descEn:
-      "A secure, government-grade administrative platform built for Homs Governorate to streamline the management of administrative districts and sub-regions. The system features granular role-based access control (RBAC) — each user sees and interacts only with data permitted by their assigned role, from field officers to department heads and super-administrators. Powered by a Django REST Framework backend with JWT authentication, it delivers a fast, token-secured API consumed by a React + Tailwind CSS frontend. Advanced multi-criteria filtering lets staff slice district records by region, status, date, and custom parameters in real time — replacing paper-heavy workflows with a centralized, auditable digital command center.",
-    descAr:
-      "منصة إدارية حكومية متكاملة وآمنة، مصممة خصيصًا لمحافظة حمص لتسهيل إدارة المناطق والوحدات الإدارية. يوفر النظام نظام صلاحيات دقيق قائم على الأدوار (RBAC) — حيث يرى كل مستخدم ويتفاعل فقط مع البيانات المخوّل له الوصول إليها، من موظفي الميدان إلى رؤساء الأقسام والمشرفين العامين. يعتمد النظام على خلفية Django REST Framework مع مصادقة JWT تضمن أمان الوصول، تُغذّي واجهة أمامية بـ React وTailwind CSS. تتيح أدوات الفلترة المتقدمة متعددة المعايير تصفية سجلات المناطق حسب المنطقة والحالة والتاريخ والمعايير المخصصة في الوقت الفعلي — لتحل محل المنظومة الورقية بمركز قيادة رقمي مركزي وقابل للتدقيق.",
-    category: "fullstack",
-    stack: ["Django", "React", "Tailwind CSS", "JWT", "REST API", "RBAC"],
-    images: ["/homsgov.jpg"],
-    liveUrl: null,
-    color: "#3B82F6",
-    type: "web",
-  },
+  // {
+  //   id: 9,
+  //   titleEn: "HomsGov — Administrative District Management",
+  //   titleAr: "هومس غوف — نظام إدارة المناطق الإدارية",
+  //   descEn:
+  //     "A secure, government-grade administrative platform built for Homs Governorate to streamline the management of administrative districts and sub-regions. The system features granular role-based access control (RBAC) — each user sees and interacts only with data permitted by their assigned role, from field officers to department heads and super-administrators. Powered by a Django REST Framework backend with JWT authentication, it delivers a fast, token-secured API consumed by a React + Tailwind CSS frontend. Advanced multi-criteria filtering lets staff slice district records by region, status, date, and custom parameters in real time — replacing paper-heavy workflows with a centralized, auditable digital command center.",
+  //   descAr:
+  //     "منصة إدارية حكومية متكاملة وآمنة، مصممة خصيصًا لمحافظة حمص لتسهيل إدارة المناطق والوحدات الإدارية. يوفر النظام نظام صلاحيات دقيق قائم على الأدوار (RBAC) — حيث يرى كل مستخدم ويتفاعل فقط مع البيانات المخوّل له الوصول إليها، من موظفي الميدان إلى رؤساء الأقسام والمشرفين العامين. يعتمد النظام على خلفية Django REST Framework مع مصادقة JWT تضمن أمان الوصول، تُغذّي واجهة أمامية بـ React وTailwind CSS. تتيح أدوات الفلترة المتقدمة متعددة المعايير تصفية سجلات المناطق حسب المنطقة والحالة والتاريخ والمعايير المخصصة في الوقت الفعلي — لتحل محل المنظومة الورقية بمركز قيادة رقمي مركزي وقابل للتدقيق.",
+  //   category: "fullstack",
+  //   stack: ["Django", "React", "Tailwind CSS", "JWT", "REST API", "RBAC"],
+  //   images: ["/homsgov.jpg"],
+  //   liveUrl: null,
+  //   color: "#3B82F6",
+  //   type: "web",
+  // },
   {
     id: 2,
     titleEn: "The Hook — Restaurant Menu",
